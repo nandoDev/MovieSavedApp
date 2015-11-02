@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MovieSavedApp.Models.Movie>
+
+@{
+    ViewBag.Title = "VistaPoster";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+<section class="contenido-encabezado">
+    <div class="input-group btnSearch" id="boton-busqueda">
+        <input type="text" name="table_search" class="form-control input-sm" placeholder="Buscar" />
+        <div class="input-group-btn">
+            <button class="btn btn-sm btn-default "><i class="fa fa-search "></i></button>
+        </div>
+    </div>
+    <div class="input-group" id="cambio-modovista">
+        <a href="@Url.Action("VistaTabla", "Home")" class="btn btn-default"><i class="fa fa-star"></i> Cambiar a vista de tabla</a>
+    </div>
+</section>
+<section class="panel-peliculas ">
+    <div class="row">
+        <div class="col-xs-12">
+            <ul id="lista-cuadricula">
+                @foreach (var pelicula in Model.ToList())
+                {
+                    <li class="cuadro-pelicula">
+                        <a href="@Url.Action("Detalles", new {id = pelicula.MovieId})">
+                            <div>
+                                <div class="poster">
+                                    <img alt="poster not found" src="@pelicula.PosterUrl" id="imagen">
+                                </div>
+                                <div class="texto-pelicula">
+                                    <h6><strong>@pelicula.Title</strong><br/><strong>(@pelicula.Year)</strong></h6>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+    
+
+

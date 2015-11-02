@@ -1,0 +1,113 @@
+﻿@model MovieSavedApp.Models.UserViewModel
+@{
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<section>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-5">
+            <div id="panel-inicio" class="bg-black">
+                <div class="inner">
+                    <p class="text-justify">
+                        <strong>MovieSaved</strong> es una útil herramienta que te permite mantener una colección personal de
+                        información de películas.<br /> Muchas veces nos gustaría recordar las películas que hemos visto, que tenemos planes
+                        de ver o que simplemente nos interesan. Así que ahora podrás conservar y consultar la información mas relevante
+                        de películas de una forma ágil y fácil. Además, a través de la herramienta de búsqueda, con tan solo ingresar el título
+                        de una película, la aplicación recopilará de IMDB su información automáticamente.<br /><br /><strong>Te invito a que
+                        te registres y disfrutes de esta práctica y divertida aplicación! </strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            @using (Html.BeginForm("Ingreso", "Inicio", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+               
+                <div class="panel-login ">
+
+                    <div class="header bg-blue-gradient">Entrar al Sistema</div>
+                    <div class="login-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.ValidationMessage("keyName")
+                        
+                        <div class="form-group">
+                            <!--<input type="text" name="userid" class="form-control" placeholder="Usuario" />-->
+                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @placeholder="Usuario"}})
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                            
+                        </div>
+                        <div class="form-group">
+                            <!--<input type="password" name="password" class="form-control" placeholder="Contraseña" />-->
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "contraseña" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger"})
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn bg-blue btn-block">Iniciar sesión</button>
+                            <p><a href="#">Olvidó su contraseña?</a></p>
+                        </div>
+                        
+                    </div>
+                </div>
+            }
+
+            @using (Html.BeginForm("RegistroIngreso", "Inicio", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="panel-registro ">
+                    <div class="header bg-black-gradient">Registrese en MovieSaved</div>
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger" })
+                    
+                    <div class="register-body">
+                        <div class="form-group">
+                            <label>Nombre de usuario</label>
+                            <div class="input-group">
+                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Correo electrónico</label>
+                            <div class="input-group">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            <div class="input-group">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Comfirmar contraseña</label>
+                            <div class="input-group">
+                               @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                               @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <button type="submit" class="btn bg-blue btn-block">Completar registro</button>
+                            </div>
+                        </div>
+                        @if (ViewBag.Message != null)
+                        {
+                            <div class="form-group">
+                                <p id="registro-exitoso">@ViewBag.Message</p>
+                            </div>
+                         }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</section>
+
+
+

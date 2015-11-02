@@ -1,0 +1,78 @@
+﻿@model IEnumerable<MovieSavedApp.Models.MovieUser>
+
+
+@{
+    ViewBag.Title = "VistaPoster";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+
+     <section class="contenido-encabezado">
+          <div class="input-group btnSearch" id="boton-busqueda">
+               <input type="text" name="table_search" class="form-control input-sm" placeholder="Buscar" />
+               <div class="input-group-btn">
+                   <button class="btn btn-sm btn-default "><i class="fa fa-search "></i></button>
+               </div>
+          </div>
+          <div class="input-group" id="cambio-modovista">
+                <a href="@Url.Action("VistaPoster", "Home")" class="btn btn-default"><i class="fa fa-star"></i> Cambiar a vista de Posters</a>
+          </div>
+     </section>
+     <section class="panel-peliculas ">
+          <div class="row">
+              <div class="col-xs-12">
+                   <table class="table table-hover">
+                       <tr>
+                            <th>Título</th>
+                            <th>Año</th>
+                            <th>Directores</th>
+                            <th>País</th>
+                            <th>Géneros</th>
+                            <th>Tipo de almacenamiento</th>
+                            <th>&nbsp;</th>
+                       </tr>
+                       @foreach (var item in Model)
+                       {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Movie.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Movie.Year)
+                                </td>
+                                <td>
+                                    @foreach (var movieDirector in item.Movie.MoviesDirectors)
+                                    {
+                                        @movieDirector.Director.Name<span>, </span>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var moviePais in item.Movie.MoviesCountries)
+                                    {
+                                        @moviePais.Country.Name<span>, </span>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var movieGenero in item.Movie.MoviesGenres)
+                                    {
+                                        @movieGenero.Genre.Name<span>, </span>
+                                    }
+                                </td>
+                                <td>
+                                     @foreach (var storage in item.MoviesUsersTypeStorages)
+                                    {@storage.TypeStorage.TypeStorageName <span>,</span>}
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Peliculas",new {id = item.Movie.MovieId})"><i class="fa fa-fw fa-edit"></i></a>
+                                    <a href="@Url.Action("Delete", "Peliculas",new {id = item.Movie.MovieId})"><i class="fa fa-fw fa-times"></i></a>
+                                </td>
+                            </tr>
+                          }
+                    </table>
+                </div>
+           </div>  
+     </section>
+
+
+        
+       

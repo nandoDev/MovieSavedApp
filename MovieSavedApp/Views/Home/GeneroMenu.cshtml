@@ -1,0 +1,17 @@
+﻿@model IEnumerable<MovieSavedApp.Models.MovieGenre>
+
+<ul class="lista-generos">
+    @foreach (var genero in Model.Select(u=>u.Genre).Distinct().ToList())
+    {
+        int conteo = 0;
+        conteo = Model.Where(u => u.Genre_Id == genero.GenreId).ToList().Count();
+        <li>
+            @Html.ActionLink(genero.Name,"FiltroGenero","Filtros", new {genero = genero.Name }, null)
+            
+            <span id="ConteoGeneroPelicula">
+              (@conteo)
+            </span>
+        </li>
+    }
+</ul>
+
